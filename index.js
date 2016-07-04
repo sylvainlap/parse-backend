@@ -1,5 +1,6 @@
 const express = require('express');
 const ParseServer = require('parse-server').ParseServer;
+const ParseDashboard = require('parse-dashboard');
 
 const api = new ParseServer({
   databaseURI: process.env.MONGODB_URI || 'mongodb://localhost:27017/dev',
@@ -9,10 +10,22 @@ const api = new ParseServer({
   serverURL: process.env.SERVER_URL || 'http://localhost:1337/parse',
 });
 
+const dashboard = new ParseDashboard({
+  apps: [
+    {
+      serverURL: process.env.SERVER_URL || 'http://localhost:1337/parse',
+      appId: process.env.APP_ID || 'myAppId',
+      masterKey: process.env.MASTER_KEY || 'myMasterKey',
+      appName: process.env.APP_NAME || 'myApp',
+    },
+  ]
+});
+
 const app = express();
 
 const mountPath = process.env.PARSE_MOUNT || '/parse';
 app.use(mountPath, api);
+app.use('/dashboard', dashboard);
 
 app.get('/', function(req, res) {
   res.status(200).send('I dream of being a website!');
