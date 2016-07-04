@@ -1,10 +1,8 @@
 const express = require('express');
 const ParseServer = require('parse-server').ParseServer;
 
-const databaseUri = process.env.DATABASE_URI || process.env.MONGODB_URI;
-
 const api = new ParseServer({
-  databaseURI: databaseUri || 'mongodb://localhost:27017/dev',
+  databaseURI: process.env.MONGODB_URI || 'mongodb://localhost:27017/dev',
   cloud: process.env.CLOUD_CODE_MAIN || __dirname + '/cloud/main.js',
   appId: process.env.APP_ID || 'myAppId',
   masterKey: process.env.MASTER_KEY || 'myMasterKey',
