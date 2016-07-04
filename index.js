@@ -19,7 +19,7 @@ const dashboard = new ParseDashboard({
       appName: process.env.APP_NAME || 'myApp',
     },
   ]
-});
+}, true); // allow insecure
 
 const app = express();
 
