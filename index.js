@@ -18,7 +18,13 @@ const dashboard = new ParseDashboard({
       masterKey: process.env.MASTER_KEY || 'myMasterKey',
       appName: process.env.APP_NAME || 'myApp',
     },
-  ]
+  ],
+  users: [
+    {
+      user: 'admin',
+      pass: 'admin1234',
+    },
+  ],
 }, true); // allow insecure
 
 const app = express();
